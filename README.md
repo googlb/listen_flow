@@ -1,16 +1,18 @@
 # listen_flow
 
-A new Flutter project.
+A Flutter project showcasing a clean architecture approach for building an interactive media player application. This English listening practice tool serves as an example of using modern Flutter techniques.
 
-## Getting Started
+✨ Core Functionality:
+*   Audio playback synchronized with transcript highlighting.
+*   Sentence-level seeking via transcript interaction.
+*   Playback speed control.
 
-This project is a starting point for a Flutter application.
+🏗️ Architecture & Tech Highlights:
+*   **State Management:** Riverpod (with Hooks) using StateNotifierProvider and FutureProvider.
+*   **Immutability:** Freezed for generating immutable models and state classes.
+*   **Navigation:** Declarative routing managed by GoRouter.
+*   **Feature-First Structure:** Code organized by application features.
+*   **Audio Integration:** Utilizes the `audioplayers` package.
+*   **UI Synchronization:** Leverages `scrollable_positioned_list` for transcript auto-scrolling.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
