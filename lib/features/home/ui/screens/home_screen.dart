@@ -13,7 +13,7 @@ import '../../../../config/router/app_route.dart';
 
 
 class HomeScreen extends ConsumerWidget { // Use ConsumerWidget
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) { // Get WidgetRef
@@ -144,7 +144,7 @@ class HomeScreen extends ConsumerWidget { // Use ConsumerWidget
                     ),
                     boxShadow: [ // Optional subtle shadow
                        BoxShadow(
-                         color: Colors.black.withOpacity(0.15),
+                         color: Colors.black.withValues(alpha: 0.15),
                          blurRadius: 6,
                          offset: const Offset(0, 3),
                        ),

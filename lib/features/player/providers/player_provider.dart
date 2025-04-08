@@ -10,7 +10,6 @@ import 'package:just_audio/just_audio.dart'; // The audio player library
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart'; // For transcript scrolling
 
 // Import related models and state definition
-import '../model/player_state.dart'; // The Freezed state class for the player UI
 
 // Necessary part directive for the generator
 part 'player_provider.g.dart';
