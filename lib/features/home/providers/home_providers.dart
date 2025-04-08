@@ -37,7 +37,7 @@ Future<List<ListeningMaterial>> featuredMaterials(Ref ref) async {
       // Use higher quality images for banner if available
       imageUrl: imageUrl,
       // Ensure a valid audio URL for navigation
-      audioUrl: "https://cdn3.easylink.cc/dee0337f-d484-42f3-bf27-f80d8cb36aa4_%E8%8B%B1%E8%AF%AD%E6%80%9D%E7%BB%B4%E5%9F%B9%E5%85%BB%E7%AD%96%E7%95%A5.wav?e=1744110938&token=J_WyMIdhZtwb0E0QHWRqEfQrd5lVSWLffl9QxaxP:9ec6cfgf39Ym_224M-APGRd-3Os=",
+      audioUrl: "https://cdn3.easylink.cc/dee0337f-d484-42f3-bf27-f80d8cb36aa4_%E8%8B%B1%E8%AF%AD%E6%80%9D%E7%BB%B4%E5%9F%B9%E5%85%BB%E7%AD%96%E7%95%A5.wav?e=1744114925&token=J_WyMIdhZtwb0E0QHWRqEfQrd5lVSWLffl9QxaxP:0TBUMO7qIQP_FtUEQMKV0yQ8sGo=",
       // Provide sample transcript data (or fetch real data)
       transcript: _getSampleTranscript(),
     );
