@@ -6,7 +6,7 @@ part of 'home_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$featuredMaterialsHash() => r'9394ef57142d8b68440cfe35ca8bc9dd0764b0af';
+String _$featuredMaterialsHash() => r'f1f9b746422491ba4099e691e027b1a6a6d4c242';
 
 /// See also [featuredMaterials].
 @ProviderFor(featuredMaterials)
@@ -45,5 +45,23 @@ final allMaterialsProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AllMaterialsRef = AutoDisposeFutureProviderRef<List<ListeningMaterial>>;
+String _$sampleMaterialHash() => r'44c0954cc683d36add190964501da47992568e39';
+
+/// See also [sampleMaterial].
+@ProviderFor(sampleMaterial)
+final sampleMaterialProvider = AutoDisposeProvider<ListeningMaterial>.internal(
+  sampleMaterial,
+  name: r'sampleMaterialProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$sampleMaterialHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SampleMaterialRef = AutoDisposeProviderRef<ListeningMaterial>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

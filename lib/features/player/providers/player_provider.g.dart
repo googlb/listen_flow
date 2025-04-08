@@ -6,14 +6,12 @@ part of 'player_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$playerHash() => r'54a9abee53e22e84bcb01df43e28139485dce861';
+String _$playerHash() => r'0c76a8d8f33fb59d880f79c00ec59c4b907f0b9e';
 
 /// Defines the Player Notifier using Riverpod code generation.
 ///
-/// This manages the state ([PlayerScreenState]) and logic for the audio player,
-/// interacting with `just_audio`, handling user actions, and syncing transcripts.
-/// The `keepAlive` parameter determines if the state is preserved (`true`)
-/// or disposed when unused (`false`, equivalent to autoDispose).
+/// Manages audio playback state and logic using just_audio, handles user actions,
+/// and synchronizes transcript scrolling conditionally based on item visibility.
 ///
 /// Copied from [Player].
 @ProviderFor(Player)

@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_flow/features/player/model/listening_material.dart';
 import 'package:listen_flow/features/player/model/transcript_segment.dart';
+import 'package:listen_flow/data/sample_transcript_data.dart';
+import 'package:listen_flow/data/sample_listening_material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 
@@ -35,7 +37,7 @@ Future<List<ListeningMaterial>> featuredMaterials(Ref ref) async {
       // Use higher quality images for banner if available
       imageUrl: imageUrl,
       // Ensure a valid audio URL for navigation
-      audioUrl: "https://cdn3.easylink.cc/dee0337f-d484-42f3-bf27-f80d8cb36aa4_%E8%8B%B1%E8%AF%AD%E6%80%9D%E7%BB%B4%E5%9F%B9%E5%85%BB%E7%AD%96%E7%95%A5.wav?e=1744098375&token=J_WyMIdhZtwb0E0QHWRqEfQrd5lVSWLffl9QxaxP:C-AMCN_N3W7YpfmdU8C7ZGfZ1J0=",
+      audioUrl: "https://cdn3.easylink.cc/dee0337f-d484-42f3-bf27-f80d8cb36aa4_%E8%8B%B1%E8%AF%AD%E6%80%9D%E7%BB%B4%E5%9F%B9%E5%85%BB%E7%AD%96%E7%95%A5.wav?e=1744110938&token=J_WyMIdhZtwb0E0QHWRqEfQrd5lVSWLffl9QxaxP:9ec6cfgf39Ym_224M-APGRd-3Os=",
       // Provide sample transcript data (or fetch real data)
       transcript: _getSampleTranscript(),
     );
@@ -65,24 +67,14 @@ Future<List<ListeningMaterial>> allMaterials(Ref ref) async {
 }
 
 
-// --- Helper: Sample Transcript Data --- (Keep this or move to a data source)
+// --- Helper: Sample Transcript Data ---
 List<TranscriptSegment> _getSampleTranscript() {
-  return [
-     TranscriptSegment(
-        englishText: "China has a large population and the richest and most varied natural landscapes in the world.",
-        chineseText: "中国拥有众多的人口，也拥有世界上最丰富多元的自然景观。",
-        startTime: Duration.zero,
-        endTime: Duration(seconds: 7)),
-    TranscriptSegment(
-        englishText: "Plateaus, forests, lakes, and coastlines...",
-        chineseText: "高原、山林、湖、海岸线...",
-        startTime: Duration(seconds: 7),
-        endTime: Duration(seconds: 18)),
-     TranscriptSegment(
-        englishText: "No other country has so many potential food sources...",
-        chineseText: "任何一个国家都没有中国这样多潜在的食物原材料...",
-        startTime: Duration(seconds: 18),
-        endTime: Duration(seconds: 24)),
-    // ... add more segments or keep it short for sample
-  ];
+  // Use the comprehensive sample transcript data
+  return sampleTranscriptData;
+}
+
+// Provider for the sample listening material
+@riverpod
+ListeningMaterial sampleMaterial(Ref ref) {
+  return sampleListeningMaterial;
 }
