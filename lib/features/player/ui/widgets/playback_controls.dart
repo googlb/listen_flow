@@ -78,7 +78,7 @@ class PlaybackControls extends HookConsumerWidget {
         children: [
           // --- Speed Control Bar (Conditionally Visible) ---
           if (showSpeedControl.value) // Use the state hook value
-            _buildSpeedControlBar(context, playerState.playbackSpeed, notifier, showSpeedControl,resetAutoHideTimer),
+            _buildSpeedControlBar(context, playerState.playbackSpeed, notifier, showSpeedControl, resetAutoHideTimer),
 
           // --- Progress Row ---
           Row(
@@ -190,7 +190,7 @@ class PlaybackControls extends HookConsumerWidget {
     double currentSpeed,
     Player notifier,
     ValueNotifier<bool> showSpeedControl,
-    VoidCallback resetTimerCallback // Receive ValueNotifier to hide bar
+    VoidCallback resetTimerCallback, // Receive ValueNotifier to hide bar
   ) {
     // Define colors for better readability
     final Color primaryColor = Theme.of(context).colorScheme.primary;
@@ -199,7 +199,7 @@ class PlaybackControls extends HookConsumerWidget {
     // Define background color for the bar - slightly different from main background
     final Color barBackgroundColor = Theme.of(
       context,
-    ).colorScheme.surfaceVariant.withOpacity(0.6); // Example using surfaceVariant
+    ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.6); // Example using surfaceVariant
     // Or use a specific color:
     // final Color barBackgroundColor = Colors.grey[200]!;
 
@@ -240,8 +240,8 @@ class PlaybackControls extends HookConsumerWidget {
                       // showSpeedControl.value = false; // Hide bar after selection
                     },
                     // borderRadius: BorderRadius.circular(20), // Make ripple effect circular too
-                    splashColor: primaryColor.withOpacity(0.2),
-                    highlightColor: primaryColor.withOpacity(0.1),
+                    splashColor: primaryColor.withValues(alpha: 0.2),
+                    highlightColor: primaryColor.withValues(alpha: 0.1),
                     child: Padding(
                       // Adjust padding to control the size of the tap target and text position
                       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
@@ -321,8 +321,8 @@ class PlaybackControls extends HookConsumerWidget {
           child: InkWell(
             onTap: onPressedAction, // Assign the determined action
             // customBorder: const CircleBorder(), // Alternative way to define shape for ripple
-            splashColor: iconColor.withOpacity(0.2), // Customize splash color
-            highlightColor: iconColor.withOpacity(0.1), // Customize highlight color
+            splashColor: iconColor.withValues(alpha: 0.2), // Customize splash color
+            highlightColor: iconColor.withValues(alpha: 0.1), // Customize highlight color
             child: Padding(
               // Add padding if needed inside the tap area, otherwise icon fills it
               padding: const EdgeInsets.all(2.0), // Small padding around the icon
