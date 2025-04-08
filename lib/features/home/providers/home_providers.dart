@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_flow/features/player/model/listening_material.dart';
 import 'package:listen_flow/features/player/model/transcript_segment.dart';
@@ -33,7 +35,7 @@ Future<List<ListeningMaterial>> featuredMaterials(Ref ref) async {
       // Use higher quality images for banner if available
       imageUrl: imageUrl,
       // Ensure a valid audio URL for navigation
-      audioUrl: "https://file-examples.com/storage/feaade38c363316396f0f20/2017/11/file_example_MP3_700KB.mp3",
+      audioUrl: "https://cdn3.easylink.cc/dee0337f-d484-42f3-bf27-f80d8cb36aa4_%E8%8B%B1%E8%AF%AD%E6%80%9D%E7%BB%B4%E5%9F%B9%E5%85%BB%E7%AD%96%E7%95%A5.wav?e=1744098375&token=J_WyMIdhZtwb0E0QHWRqEfQrd5lVSWLffl9QxaxP:C-AMCN_N3W7YpfmdU8C7ZGfZ1J0=",
       // Provide sample transcript data (or fetch real data)
       transcript: _getSampleTranscript(),
     );
@@ -53,10 +55,10 @@ Future<List<ListeningMaterial>> allMaterials(Ref ref) async {
     10,
     (index) => ListeningMaterial(
       id: 'item_$index',
-      title: 'A Bite of China ${index + 1} - Topic ${index + 1}',
+      title: 'A Bite of China ${index + 1} - Topic ${Random().nextInt(10)} ',
       description: 'Explore the rich culinary culture and natural gifts of China in episode ${index + 1}.',
-      imageUrl: 'https://picsum.photos/200/200?text=Topic+${index + 1}',
-      audioUrl: "https://file-examples.com/storage/feaade38c363316396f0f20/2017/11/file_example_MP3_700KB.mp3", // Sample URL
+      imageUrl: 'https://picsum.photos/200/200?text=Topic+${Random().nextInt(10)}',
+      audioUrl: "https://easylink.cc/o4keqc", // Sample URL
       transcript: _getSampleTranscript(),
     ),
   );

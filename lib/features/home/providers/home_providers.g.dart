@@ -6,7 +6,7 @@ part of 'home_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$featuredMaterialsHash() => r'82800a831635a86e132293bf5b05a12b55a69284';
+String _$featuredMaterialsHash() => r'9394ef57142d8b68440cfe35ca8bc9dd0764b0af';
 
 /// See also [featuredMaterials].
 @ProviderFor(featuredMaterials)
@@ -26,7 +26,7 @@ final featuredMaterialsProvider =
 // ignore: unused_element
 typedef FeaturedMaterialsRef =
     AutoDisposeFutureProviderRef<List<ListeningMaterial>>;
-String _$allMaterialsHash() => r'18a55b1213e335cb448b73e3af7fdeb8e3f1b4f6';
+String _$allMaterialsHash() => r'b060a185ba62ffca9cb52710912754d177080ef9';
 
 /// See also [allMaterials].
 @ProviderFor(allMaterials)

@@ -1,28 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart'; // Use ConsumerWidget for Riverpod access
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:listen_flow/features/player/model/listening_material.dart';
 import 'package:listen_flow/features/player/model/transcript_segment.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart'; // For the transcript list
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-// Import models, providers, and other necessary widgets
-import '../../providers/player_provider.dart'; // Access the player state and notifier
-import 'playback_controls.dart'; // The widget for buttons and slider
+import '../../providers/player_provider.dart';
+import 'playback_controls.dart';
 
-/// PlayerView: A reusable widget displaying the core player interface.
-///
-/// This includes the scrollable transcript list synchronized with audio playback
-/// and the playback controls section. It reads the player state from Riverpod.
-class PlayerView extends ConsumerWidget { // Changed to ConsumerWidget as no hooks are directly used here
-  /// The listening material containing the audio URL and transcript data.
+class PlayerView extends ConsumerWidget {
   final ListeningMaterial material;
-
-  /// Controller to programmatically scroll the transcript list.
   final ItemScrollController itemScrollController;
-
-  /// Listener to observe the items currently visible in the transcript list.
   final ItemPositionsListener itemPositionsListener;
 
-  /// Constructor requiring the material and scroll controllers.
   const PlayerView({
     super.key,
     required this.material,
@@ -32,105 +21,124 @@ class PlayerView extends ConsumerWidget { // Changed to ConsumerWidget as no hoo
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // --- Watch Player State ---
-    // Listen to the player provider to get the current state.
-    // This widget will rebuild whenever the PlayerScreenState changes.
     final playerState = ref.watch(playerProvider);
-
-    // Get the notifier instance once to call methods (like seek).
-    // Use ref.read inside callbacks or when the instance itself is needed.
     final playerNotifier = ref.read(playerProvider.notifier);
 
-    // --- Handle Player Loading/Error States ---
-    // Display indicators or messages based on the player's internal state.
-    // Note: Material loading is typically handled by the parent screen (DetailScreen/ReadingScreen).
-    if (playerState.isLoading) {
-      // Show a loading indicator while the player is initially setting the audio source.
-      return const Center(child: CircularProgressIndicator());
-    }
+    // Determine if there's an error that prevents playback
+    final bool hasPlaybackError = playerState.errorMessage != null;
 
-    if (playerState.errorMessage != null) {
-      // Display an error message if the player encountered an issue.
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-            "Player Error: ${playerState.errorMessage}",
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Theme.of(context).colorScheme.error),
-          ),
-        ),
-      );
-    }
-
-    // --- Build Main Player UI ---
+    // --- Build Main Player UI Structure ALWAYS ---
     return Column(
       children: [
         // --- Transcript Area ---
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            // Use ScrollablePositionedList for synchronized scrolling
-            child: ScrollablePositionedList.builder(
-              itemCount: material.transcript.length, // Number of transcript segments
-              itemScrollController: itemScrollController, // Controller for programmatic scrolling
-              itemPositionsListener: itemPositionsListener, // Listener for visible items
-              itemBuilder: (context, index) {
-                // Get the specific transcript segment for this index
-                final TranscriptSegment segment = material.transcript[index];
+            // Optionally, display an error overlay *over* the transcript
+            child: Stack( // Use Stack to overlay error message if needed
+              children: [
+                // Build transcript list regardless of error
+                ScrollablePositionedList.builder(
+                  itemCount: material.transcript.length,
+                  itemScrollController: itemScrollController,
+                  itemPositionsListener: itemPositionsListener,
+                  itemBuilder: (context, index) {
+                    final TranscriptSegment segment = material.transcript[index];
+                    final bool isCurrent = index == playerState.currentSegmentIndex && !hasPlaybackError; // Don't highlight if error
+                    final Color currentTextColor = Theme.of(context).colorScheme.primary;
+                    final Color defaultTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? Colors.black87;
+                    final Color chineseTextColor = Colors.grey[600]!;
+                    final Color errorColor = Theme.of(context).colorScheme.error.withOpacity(0.6); // Muted error color
 
-                // Determine if this segment is the currently playing one
-                final bool isCurrent = index == playerState.currentSegmentIndex;
-
-                // Define text colors for highlighting
-                final Color currentTextColor = Theme.of(context).colorScheme.primary;
-                final Color defaultTextColor = Theme.of(context).textTheme.bodyMedium?.color ?? Colors.black87;
-                final Color chineseTextColor = Colors.grey[600]!;
-
-                // Make each segment tappable to seek audio
-                return InkWell(
-                  onTap: () => playerNotifier.seekToSegment(index), // Call notifier method on tap
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0), // Spacing between segments
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
-                      children: [
-                        // English Text
-                        Text(
-                          segment.englishText,
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal, // Bold if current
-                            color: isCurrent ? currentTextColor : defaultTextColor, // Highlight color if current
-                            height: 1.5, // Line spacing
-                          ),
-                        ),
-                        // Chinese Text (Optional)
-                        if (segment.chineseText.isNotEmpty) ...[
-                          const SizedBox(height: 4), // Small gap between English and Chinese
-                          Text(
-                            segment.chineseText,
-                            style: TextStyle(
-                              fontSize: 15,
-                              // Slightly less prominent highlight for translation
-                              color: isCurrent ? currentTextColor.withOpacity(0.85) : chineseTextColor,
-                              height: 1.4, // Line spacing
+                    return InkWell(
+                      // Disable seeking if there's an error
+                      onTap: hasPlaybackError ? null : () => playerNotifier.seekToSegment(index),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              segment.englishText,
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
+                                // Dim text color slightly if there's an error
+                                color: hasPlaybackError ? defaultTextColor.withOpacity(0.7) : (isCurrent ? currentTextColor : defaultTextColor),
+                                height: 1.5,
+                              ),
                             ),
-                          ),
-                        ]
-                      ],
+                            if (segment.chineseText.isNotEmpty) ...[
+                              const SizedBox(height: 4),
+                              Text(
+                                segment.chineseText,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: hasPlaybackError ? chineseTextColor.withOpacity(0.7) : (isCurrent ? currentTextColor.withOpacity(0.85) : chineseTextColor),
+                                  height: 1.4,
+                                ),
+                              ),
+                            ],
+                            // Optionally add a subtle indicator per line on error
+                            // if (hasPlaybackError) Divider(color: errorColor, height: 1, thickness: 0.5),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+
+                // --- Error Overlay ---
+                // Show an informative overlay if there's an error
+                if (hasPlaybackError)
+                  Positioned.fill(
+                    child: Container(
+                      // Semi-transparent background to indicate issue without hiding text completely
+                      color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.6),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children:[
+                                  Icon(Icons.error_outline, color: Theme.of(context).colorScheme.error, size: 40),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                      "Could not load audio: ${playerState.errorMessage}",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Theme.of(context).colorScheme.error),
+                                  ),
+                                  // Optionally add a retry button if applicable
+                                  // ElevatedButton(onPressed: () => playerNotifier.loadMaterial(material), child: Text("Retry"))
+                              ]
+                          )
+                        ),
+                      ),
                     ),
                   ),
-                );
-              },
+
+                // Show loading indicator specifically during initial load
+                if (playerState.isLoading)
+                    Positioned.fill(
+                        child: Container(
+                            color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
+                            child: const Center(child: CircularProgressIndicator())
+                        )
+                    )
+              ],
             ),
           ),
         ),
 
         // --- Playback Controls Area ---
-        // Include the separate PlaybackControls widget.
-        // Pass the current player state and the notifier instance to it.
-        const PlaybackControls(), 
+        // Pass the error state to PlaybackControls so it can disable buttons
+        PlaybackControls(
+            // Pass error state down - PlaybackControls needs modification
+            // hasError: hasPlaybackError, // Add this parameter to PlaybackControls
+        ),
+        // OR simply render the controls, they might look enabled but won't work
+        // if the player state prevents actions (e.g., trying to play when state is error/idle)
+        // const PlaybackControls(), // Keeps existing structure
       ],
     );
   }

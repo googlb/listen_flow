@@ -19,9 +19,9 @@ class DetailScreen extends HookConsumerWidget {
 
   /// Constructor requiring the [ListeningMaterial].
   const DetailScreen({
-    Key? key,
+    super.key,
     required this.material,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
