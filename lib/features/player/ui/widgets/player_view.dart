@@ -129,7 +129,7 @@ class PlayerView extends ConsumerWidget { // Remains ConsumerWidget to watch loa
                 if (hasPlaybackError)
                   Positioned.fill(
                     child: Container(
-                      color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.6),
+                      color: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: 0.6),
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(30.0),

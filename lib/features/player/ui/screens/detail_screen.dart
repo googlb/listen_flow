@@ -45,6 +45,7 @@ class DetailScreen extends HookConsumerWidget {
       // 1. Provide the scroll controller to the player notifier.
       // This allows the notifier to control scrolling the transcript list.
       playerNotifier.setScrollController(itemScrollController);
+      playerNotifier.setPositionsListener(itemPositionsListener);
 
       // 2. Load the specific material for this screen into the player.
       // It's often good practice to load data after the first frame renders,

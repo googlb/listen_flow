@@ -6,7 +6,7 @@ part of 'home_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$featuredMaterialsHash() => r'd077d88c5709a3b602e745e58a6cd7af2b3492d2';
+String _$featuredMaterialsHash() => r'56f38d55d9b9bfcd884137745185a6c0f6305d3a';
 
 /// See also [featuredMaterials].
 @ProviderFor(featuredMaterials)
