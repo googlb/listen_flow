@@ -37,7 +37,7 @@ Future<List<ListeningMaterial>> featuredMaterials(Ref ref) async {
       // Use higher quality images for banner if available
       imageUrl: imageUrl,
       // Ensure a valid audio URL for navigation
-      audioUrl: "https://cdn3.easylink.cc/dee0337f-d484-42f3-bf27-f80d8cb36aa4_%E8%8B%B1%E8%AF%AD%E6%80%9D%E7%BB%B4%E5%9F%B9%E5%85%BB%E7%AD%96%E7%95%A5.wav?e=1744125494&token=J_WyMIdhZtwb0E0QHWRqEfQrd5lVSWLffl9QxaxP:oq_MepSExLefjkztz3ao2Q9WUSM=",
+      audioUrl: "https://nc-cdn.oss-us-west-1.aliyuncs.com/notegpt/web3in1/audio/98d409e1-a90c-431b-bbbe-6f24fecd23ba.wav",
       // Provide sample transcript data (or fetch real data)
       transcript: _getSampleTranscript(),
     );
@@ -70,7 +70,7 @@ Future<List<ListeningMaterial>> allMaterials(Ref ref) async {
 // --- Helper: Sample Transcript Data ---
 List<TranscriptSegment> _getSampleTranscript() {
   // Use the comprehensive sample transcript data
-  return sampleTranscriptData;
+  return generatedTranscriptData;
 }
 
 // Provider for the sample listening material

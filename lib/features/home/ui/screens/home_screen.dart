@@ -139,7 +139,7 @@ class HomeScreen extends ConsumerWidget { // Use ConsumerWidget
                       fit: BoxFit.cover,
                       // Handle potential image loading errors gracefully
                       onError: (exception, stackTrace) {
-                         print("Banner Image Error: $exception");
+                         debugPrint("Banner Image Error: $exception");
                       },
                     ),
                     boxShadow: [ // Optional subtle shadow

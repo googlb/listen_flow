@@ -1,8 +1,6 @@
 import 'dart:async'; // Required for StreamSubscription
-import 'package:flutter/foundation.dart'; // For debugPrint
 import 'package:flutter/scheduler.dart'; // For SchedulerBinding
 import 'package:flutter/widgets.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart'; // Base Riverpod (needed by generated code)
 import 'package:listen_flow/features/player/model/listening_material.dart';
 import 'package:listen_flow/features/player/model/player_screen_state.dart';
 import 'package:listen_flow/features/player/model/transcript_segment.dart';

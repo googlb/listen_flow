@@ -73,7 +73,7 @@ class ReadingScreen extends HookConsumerWidget {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           // Check if the widget is still mounted before calling async load
           if (context.mounted) {
-            print("ReadingScreen: Loading placeholder material.");
+            debugPrint("ReadingScreen: Loading placeholder material.");
             // Initiate loading but don't necessarily wait here, as the
             // PlayerView will show its own loading state based on the provider.
             playerNotifier.loadMaterial(_placeholderMaterial);

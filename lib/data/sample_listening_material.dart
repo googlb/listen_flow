@@ -8,5 +8,5 @@ final ListeningMaterial sampleListeningMaterial = ListeningMaterial(
   description: "An introduction to the diverse culinary traditions of China, including the famous 'Eight Great Cuisines' and the philosophy behind Chinese food culture.",
   imageUrl: "https://example.com/images/chinese-cuisine.jpg",
   audioUrl: "https://example.com/audio/chinese-cuisine.mp3",
-  transcript: sampleTranscriptData,
+  transcript: generatedTranscriptData,
 );

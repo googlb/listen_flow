@@ -146,14 +146,14 @@ class GoRouterObserver extends NavigatorObserver {
 
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-     print('GoRouterObserver: Pushed route: ${route.settings.name}');
+     debugPrint('GoRouterObserver: Pushed route: ${route.settings.name}');
      // Add logic using 'ref' if needed
     super.didPush(route, previousRoute);
   }
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    print('GoRouterObserver: Popped route: ${route.settings.name}, back to ${previousRoute?.settings.name}');
+    debugPrint('GoRouterObserver: Popped route: ${route.settings.name}, back to ${previousRoute?.settings.name}');
     // Your previous logic to refresh data on pop could go here, adapted for ListenFlow
     // Example:
     // if (previousRoute?.settings.name == AppRoute.home.name) {
