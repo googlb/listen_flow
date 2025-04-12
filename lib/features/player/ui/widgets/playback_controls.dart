@@ -111,6 +111,7 @@ class PlaybackControls extends HookConsumerWidget {
                                   },
                           activeColor: Theme.of(context).colorScheme.primary,
                           inactiveColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                          
                         )
                         : const Slider(value: 0.0, min: 0.0, max: 1.0, onChanged: null),
               ),
