@@ -83,9 +83,8 @@ class PlaybackControls extends HookConsumerWidget {
           // --- Progress Row ---
           Row(
             children: [
-              Padding(
-                // Current Time
-                padding: const EdgeInsets.only(right: 8.0),
+              SizedBox(
+                width: 40,
                 child: Text(_formatDuration(playerState.currentPosition), style: Theme.of(context).textTheme.bodySmall),
               ),
               Expanded(
@@ -115,9 +114,8 @@ class PlaybackControls extends HookConsumerWidget {
                         )
                         : const Slider(value: 0.0, min: 0.0, max: 1.0, onChanged: null),
               ),
-              Padding(
-                // Total Time
-                padding: const EdgeInsets.only(left: 8.0),
+              SizedBox(
+                width: 40,
                 child: Text(_formatDuration(playerState.totalDuration), style: Theme.of(context).textTheme.bodySmall),
               ),
             ],
